@@ -1,8 +1,10 @@
 from selenium.common.exceptions import TimeoutException
-import os, logging, time
+import os
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+import logging
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -13,11 +15,12 @@ def initializeChromedriver():
     logging.info("Initializing the driver for Chrome")
     return webdriver.Chrome()
 
-# get url for video
+
 def getVideoUrl(url):
     return url
 
-#play video
+
+
 def playVideo(driverObj):
     #Finding the video by XPATH
     playVideo = driverObj.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/section[3]/div[2]/ul/li[1]/div/button')
@@ -40,11 +43,11 @@ def playVideo(driverObj):
         logging.info("Video in play mode...")
         #Waiting till video end
         WebDriverWait(driverObj, 100000).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[4]/div/div[2]/div/div[2]/div/div[1]')))
-        logging.info("Video ended")
     except TimeoutException as ex:
         logging.error(ex.message)
         
-#get details of the video
+
+
 def getVideoDetails(driverObj):
 
     #Getting title of the video
@@ -58,6 +61,7 @@ def getVideoDetails(driverObj):
     #Getting cast of the video
     getCast = driverObj.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/section[1]/div[1]/div[1]/div[2]/div/div[2]/div[2]/div[1]/span[2]')
     logging.info("Movie starcast: " + getCast.get_attribute('textContent'))
+
 
 def main():
     url = getVideoUrl("https://www.netflix.com/in/title/80192098")
